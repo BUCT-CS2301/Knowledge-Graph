@@ -7,8 +7,8 @@ import os
 from tqdm import tqdm  # 用于显示进度条
 
 # 百度翻译 API 账号信息
-appid = ""
-secret_key = ""
+appid = "20260516002614250"
+secret_key = "xgHY_Lv7B3q1GD9CwBkK"
 
 
 # 批量翻译函数（支持多句）

@@ -46,9 +46,9 @@ def baidu_batch_translate(sentences, from_lang="auto", to_lang="zh"):
 
 
 # === 参数配置 ===
-input_file = "Data Cleaning/cleveland.csv"
-output_file = "translated_cleveland.csv"
-columns_to_translate = ["title","period","type","material","description","dimensions","museum","location","credit_line"]  # 可添加多个列名
+input_file = "Translation/translated_nelson_atkins.csv"
+output_file = "translated_output_translated_nelson_atkins.csv"
+columns_to_translate = ["credit_line"]  # 可添加多个列名
 batch_size = 100
 sleep_time = 0.8
 # === 加载 CSV 文件 ===

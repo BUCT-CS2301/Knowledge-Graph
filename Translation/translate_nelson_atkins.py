@@ -10,13 +10,13 @@ from tencentcloud.tmt.v20180321 import tmt_client, models
 
 # ================= 配置区域 =================
 # 请替换成你自己的密钥（建议用环境变量，不要硬编码！）
-SECRET_ID = ""
-SECRET_KEY = ""
+SECRET_ID = "SECRET_ID"
+SECRET_KEY = "SECRET_KEY"
 REGION = "ap-beijing"          # 地域
-INPUT_FILE = "Data Cleaning/nelson_atkins.csv"
-OUTPUT_FILE = "translated_nelson_atkins.csv"
-COLUMNS_TO_TRANSLATE = ["title","type","material","description","dimensions","museum","location","credit_line"]
-SLEEP_TIME = 0.2               # 单条间隔，满足5次/秒限制（0.2秒=5次/秒）
+INPUT_FILE = "Translation/translated_nelson_atkins.csv"
+OUTPUT_FILE = "translated_output_nelson_atkins.csv"
+COLUMNS_TO_TRANSLATE = ["credit_line"]
+SLEEP_TIME = 0.2              # 单条间隔，满足5次/秒限制（0.2秒=5次/秒）
 SAVE_INTERVAL = 50             # 每翻译多少行保存一次
 # ===========================================
 
