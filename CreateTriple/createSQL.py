@@ -2,6 +2,7 @@ import os
 import csv
 import uuid
 import pymysql
+import argparse
 from datetime import datetime
 
 DB_CONFIG = {
@@ -149,6 +150,10 @@ def process_csv_file(cursor, filename):
     return success_count, fail_count
 
 def main():
+    parser = argparse.ArgumentParser(description='Import CSV data into MySQL')
+    parser.add_argument('--keep', action='store_true', help='保留数据库现有数据，不清空表')
+    args = parser.parse_args()
+
     conn = None
     try:
         conn = pymysql.connect(**DB_CONFIG)
@@ -157,11 +162,14 @@ def main():
         cursor = conn.cursor()
         cursor.execute("SET NAMES utf8mb4")
 
-        cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
-        cursor.execute("TRUNCATE TABLE artifact")
-        cursor.execute("TRUNCATE TABLE museum")
-        cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
-        print("Database tables cleared")
+        if not args.keep:
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
+            cursor.execute("TRUNCATE TABLE artifact")
+            cursor.execute("TRUNCATE TABLE museum")
+            cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
+            print("Database tables cleared")
+        else:
+            print("Keeping existing data (--keep)")
 
         csv_files = [
             'translated_cleveland.csv',
