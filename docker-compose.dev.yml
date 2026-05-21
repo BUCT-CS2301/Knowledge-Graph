@@ -1,0 +1,69 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: dev-mysql
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 643114514
+      MYSQL_DATABASE: admin_platform
+    ports:
+      - "3306:3306"
+    volumes:
+      - dev_mysql_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - dev-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: dev-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - dev_redis_data:/data
+    networks:
+      - dev-net
+
+  neo4j:
+    image: neo4j:5-community
+    container_name: dev-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/password123
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - dev_neo4j_data:/data
+    networks:
+      - dev-net
+
+  minio:
+    image: minio/minio:latest
+    container_name: dev-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin123
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - dev_minio_data:/data
+    networks:
+      - dev-net
+
+volumes:
+  dev_mysql_data:
+  dev_redis_data:
+  dev_neo4j_data:
+  dev_minio_data:
+
+networks:
+  dev-net:
+    driver: bridge
