@@ -73,11 +73,20 @@ def clean_period(period_str):
 def safe_str(val, max_len=None):
     if not val:
         return ''
-    val = val.strip()
+    val = str(val).strip()
     return val[:max_len] if max_len else val
 
 def insert_artifact(cursor, row, museum_id):
-    object_id = str(uuid.uuid4())
+    # ===================== 绝对不会错的写法 =====================
+    object_id = str(uuid.uuid4())  # 主键自动生成
+    
+    # 直接取第一列！！！无视表头冲突
+    img_id = str(list(row.values())[0]).strip()
+
+    image_url = f"http://39.106.231.119/images/{img_id}.jpg"
+    image_path = f"/var/www/image/{img_id}.jpg"
+    # ===========================================================
+
     title = safe_str(row.get('title', ''))
     period = clean_period(row.get('period', ''))
     type_cn = safe_str(row.get('type_cn', ''), 100)
@@ -86,8 +95,6 @@ def insert_artifact(cursor, row, museum_id):
     description = safe_str(row.get('description', ''))
     dimensions = safe_str(row.get('dimensions', ''), 300)
     detail_url = safe_str(row.get('detail_url', ''), 1000) or 'unknown'
-    image_url = safe_str(row.get('image_url', ''), 1000) or 'unknown'
-    image_path = safe_str(row.get('image_path', ''), 500)
     credit_line = safe_str(row.get('credit_line', ''), 500)
     accession_number = safe_str(row.get('accession_number', ''), 100)
     crawl_date = parse_crawl_date(row.get('crawl_date', ''))
@@ -146,7 +153,7 @@ def process_csv_file(cursor, filename):
                 title = safe_str(row.get('title', ''))
                 print(f"Error inserting artifact '{title}': {e}")
 
-    print(f"Processed {filename}: {success_count} success, {fail_count} failed")
+    print(f"Processed {filename}: {success_count} 成功, {fail_count} 失败")
     return success_count, fail_count
 
 def main():
@@ -186,7 +193,7 @@ def main():
             total_fail += fail
 
         conn.commit()
-        print(f"\nTotal: {total_success} records inserted, {total_fail} failed")
+        print(f"\nTotal: {total_success} 条插入成功, {total_fail} 条失败")
 
     except pymysql.MySQLError as e:
         if conn:
