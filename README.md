@@ -24,6 +24,7 @@ Knowledge-Graph/
 
 ```bash
 docker compose -f docker-compose.dev.yml up -d
+补充说明：响应更改需求，新增role表的permissions字段,增加方式为执行alter.sql脚本
 ```
 
 包含服务：
