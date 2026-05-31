@@ -6,18 +6,49 @@
 
 ```
 Knowledge-Graph/
-├── spider/                  # 爬虫：抓取博物馆藏品数据
+├── spider/                          # 爬虫：抓取博物馆藏品数据
 │   ├── cleveland_museum/
+│   │   ├── cleveland_museum.py      # 克利夫兰博物馆爬虫
+│   │   └── cleveland_museum.csv     # 爬取结果
 │   ├── nelson-atkins_museum/
-│   └── penn_museum/
-├── Data Cleaning/           # 数据清洗：处理原始 CSV
-├── Translation/             # 翻译：将英文字段翻译为中文
-├── CreateTriple/            # 构建知识图谱
-│   ├── createSQL.py         # CSV → MySQL
-│   └── createTriple.py      # MySQL → Neo4j 三元组
+│   │   ├── nelson-atkins_museum.py  # 尼尔森-阿特金斯博物馆爬虫
+│   │   └── nelson-atkins_museum.csv
+│   ├── penn_museum/
+│   │   ├── penn_museum.py           # 宾大博物馆爬虫
+│   │   └── penn_museum.csv
+│   └── csv文档数据说明.md
+├── Data Cleaning/                   # 数据清洗：处理原始 CSV
+│   ├── cleveland.py                 # 克利夫兰数据清洗脚本
+│   ├── cleveland.csv                # 清洗后数据
+│   ├── nelson_atkins.py
+│   ├── nelson_atkins.csv
+│   ├── penn.py
+│   └── penn.csv
+├── Translation/                     # 翻译：将英文字段翻译为中文
+│   ├── translate_cleveland.py       # 克利夫兰翻译脚本
+│   ├── input_cleveland.csv          # 翻译输入
+│   ├── translated_cleveland.csv     # 翻译输出（中文）
+│   ├── translate_nelson_atkins.py
+│   ├── input_nelson_atkins.csv
+│   ├── translated_nelson_atkins.csv
+│   ├── translate_penn.py
+│   ├── input_penn.csv
+│   ├── translated_penn.csv
+│   └── date.py                      # 日期格式处理
+├── CreateTriple/                    # 构建知识图谱
+│   ├── createSQL.py                 # CSV → MySQL（支持 --keep 追加模式）
+│   ├── test.py                      # 测试 Neo4j以及MySQL 连接
+│   └── createTriple.py              # MySQL → Neo4j 三元组
 ├── mysql/
-│   └── init.sql             # MySQL 建表脚本
-└── docker-compose.dev.yml   # Docker 开发环境
+│   ├── init.sql                     # MySQL 建表脚本
+│   └── alter.sql                    # 数据库变更脚本
+├── Meeting/                         # 会议记录
+│   ├── week8.md
+│   ├── week9.md
+│   ├── week10.md
+│   └── week11.md
+├── README.md
+└── docker-compose.dev.yml           # Docker 开发环境
 ```
 
 ## 环境启动
