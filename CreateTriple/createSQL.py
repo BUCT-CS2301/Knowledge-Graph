@@ -77,15 +77,12 @@ def safe_str(val, max_len=None):
     return val[:max_len] if max_len else val
 
 def insert_artifact(cursor, row, museum_id):
-    # ===================== 绝对不会错的写法 =====================
     object_id = str(uuid.uuid4())  # 主键自动生成
-    
-    # 直接取第一列！！！无视表头冲突
+
     img_id = str(list(row.values())[0]).strip()
 
     image_url = f"http://39.106.231.119/images/{img_id}.jpg"
     image_path = f"/var/www/image/{img_id}.jpg"
-    # ===========================================================
 
     title = safe_str(row.get('title', ''))
     period = clean_period(row.get('period', ''))
