@@ -73,7 +73,7 @@ python createTriple.py
 | ArtifactType | name | 文物品类 |
 | Museum | name | 博物馆 |
 | Location | name | 地理位置 |
-| Image | url | 展示图片 |
+
 
 ### 关系类型
 
@@ -85,7 +85,7 @@ python createTriple.py
 | 文物品类 | Artifact → ArtifactType | 文物类别（支持多品类，按 `\|` `;` `、` 分割） |
 | 收藏馆藏 | Artifact → Museum | 收藏该文物的博物馆 |
 | 坐落地址 | Museum → Location | 博物馆所在地址 |
-| 展示图片 | Artifact → Image | 文物展示图片 |
+
 
 ### Artifact 节点属性
 
