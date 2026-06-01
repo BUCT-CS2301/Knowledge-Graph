@@ -91,6 +91,42 @@ python createTriple.py
 - 从 MySQL 读取文物数据，构建 Neo4j 三元组
 - 每次运行会**清空 Neo4j 全部数据**后重建
 
+## 数据库表结构
+
+数据库名：`admin_platform`，字符集：`utf8mb4`，排序规则：`utf8mb4_unicode_ci`
+
+**museum（博物馆表）**
+
+| 字段 | 类型 | 约束 | 说明 |
+|------|------|------|------|
+| object_id | VARCHAR(36) | PK | 主键 |
+| name | VARCHAR(200) | NOT NULL | 英文名 |
+| name_cn | VARCHAR(200) | | 中文名 |
+| location | VARCHAR(200) | | 地址 |
+| website | VARCHAR(500) | | 官网 |
+
+**artifact（文物表）**
+
+| 字段 | 类型 | 约束 | 说明 |
+|------|------|------|------|
+| object_id | VARCHAR(36) | PK | 主键（来自CSV原始ID） |
+| title | VARCHAR(500) | NOT NULL | 文物名称 |
+| period | VARCHAR(200) | | 朝代/时期 |
+| type | VARCHAR(100) | | 文物品类（优先type_cn） |
+| material | VARCHAR(200) | | 材质 |
+| description | TEXT | | 描述 |
+| dimensions | VARCHAR(300) | | 尺寸 |
+| museum_id | VARCHAR(36) | FK → museum | 所属博物馆 |
+| detail_url | VARCHAR(1000) | NOT NULL | 详情页链接 |
+| image_url | VARCHAR(1000) | NOT NULL | 图片链接 |
+| image_path | VARCHAR(500) | | 本地图片路径 |
+| credit_line | VARCHAR(500) | | 来源/捐赠信息 |
+| accession_number | VARCHAR(100) | | 馆藏编号 |
+| crawl_date | DATE | NOT NULL | 采集日期 |
+| create_time | DATETIME | NOT NULL, DEFAULT CURRENT_TIMESTAMP | 创建时间 |
+| update_time | DATETIME | ON UPDATE CURRENT_TIMESTAMP | 更新时间 |
+| is_deleted | TINYINT(1) | DEFAULT 0 | 逻辑删除 |
+
 ## 知识图谱结构
 
 ### 节点类型
