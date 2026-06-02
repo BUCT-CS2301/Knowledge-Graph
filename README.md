@@ -38,6 +38,7 @@ Knowledge-Graph/
 ├── CreateTriple/                    # 构建知识图谱
 │   ├── createSQL.py                 # CSV → MySQL（支持 --keep 追加模式）
 │   ├── test.py                      # 测试 Neo4j以及MySQL 连接
+│   ├── check.py                     # 检查 有效数据数量及删除无效数据
 │   └── createTriple.py              # MySQL → Neo4j 三元组
 ├── mysql/
 │   ├── init.sql                     # MySQL 建表脚本
