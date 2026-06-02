@@ -38,7 +38,7 @@ Knowledge-Graph/
 ├── CreateTriple/                    # 构建知识图谱
 │   ├── createSQL.py                 # CSV → MySQL（支持 --keep 追加模式）
 │   ├── test.py                      # 测试 Neo4j以及MySQL 连接
-│   ├── check.py                     # 检查 有效数据数量及删除无效数据
+│   ├── check.py                     # 检查 有效数据数量及删除无效数据s
 │   └── createTriple.py              # MySQL → Neo4j 三元组
 ├── mysql/
 │   ├── init.sql                     # MySQL 建表脚本
@@ -71,12 +71,21 @@ docker compose -f docker-compose.dev.yml up -d
 
 ```bash
 cd CreateTriple
+# 测试 Neo4j 连接
+python test.py
 
 # 默认：先清空 artifact 和 museum 表，再导入
 python createSQL.py
 
 # 保留现有数据，追加导入（按 accession_number 去重）
 python createSQL.py --keep
+
+# 检查并无效数据
+python check.py
+
+#删除无效数据
+python check.py --delete
+
 ```
 
 - 数据源：`Translation/translated_*.csv`（三家博物馆的中文翻译数据）
